@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รูปข่าวกิจกรรม ONE PAGE</title>
     
-    <!-- ไอคอนหนังสือพิมพ์บนแท็บ -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📰</text></svg>">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Kanit -->
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <script>
@@ -89,22 +86,30 @@
 
     <!-- Main Content -->
     <main class="flex-grow py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto bg-clay-50 rounded-2xl shadow-clay-inset p-4 md:p-8 lg:px-16 border border-clay-200 relative overflow-hidden">
+        <!-- ขยาย max-w-6xl เป็น max-w-7xl และลด padding จาก lg:px-16 เป็น lg:px-8 เพื่อเพิ่มพื้นที่ให้เรียง 6 ชิ้นได้ -->
+        <div class="max-w-7xl mx-auto bg-clay-50 rounded-2xl shadow-clay-inset p-4 md:p-8 lg:px-8 border border-clay-200 relative overflow-hidden">
             <div class="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_10px_30px_rgba(0,0,0,0.05)]"></div>
             
             <!-- Bookshelf Area -->
             <div id="bookshelf-container" class="relative mt-8 min-h-[300px]"></div>
 
-            <!-- Pagination Buttons (Back & Next) -->
-            <div id="pagination-container" class="relative z-20 flex justify-between items-center mt-10 pt-6 border-t border-clay-300/50 hidden">
+            <!-- ปุ่มย้อนกลับโฟลเดอร์ก่อนหน้า -->
+            <div id="levelBackBtnContainer" class="relative z-20 flex justify-center mt-8 hidden">
+                <button onclick="navigateUpTo(currentPath.length - 2)" class="px-6 py-2.5 bg-white border-2 border-clay-300 hover:border-amber-600 hover:bg-amber-50 text-clay-700 hover:text-amber-700 text-sm sm:text-base font-semibold rounded-xl shadow-sm transition-all flex items-center gap-2">
+                    <i class="ph-bold ph-arrow-u-up-left text-xl"></i> ย้อนกลับโฟลเดอร์ก่อนหน้า
+                </button>
+            </div>
+
+            <!-- Pagination Buttons -->
+            <div id="pagination-container" class="relative z-20 flex justify-between items-center mt-8 pt-6 border-t border-clay-300/50 hidden">
                 <button id="prevPageBtn" onclick="changePage(-1)" class="px-4 py-2 sm:px-6 sm:py-2.5 bg-white border border-clay-300 text-clay-700 text-sm sm:text-base font-medium rounded-xl shadow-sm hover:bg-clay-100 hover:text-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-2">
-                    <i class="ph-bold ph-caret-left text-lg"></i> ย้อนกลับ
+                    <i class="ph-bold ph-caret-left text-lg"></i> หน้าก่อนหน้า
                 </button>
                 
                 <span id="pageIndicator" class="text-sm sm:text-base font-medium text-clay-600 bg-clay-200/50 px-4 py-1.5 rounded-lg">หน้า 1 / 1</span>
                 
                 <button id="nextPageBtn" onclick="changePage(1)" class="px-4 py-2 sm:px-6 sm:py-2.5 bg-white border border-clay-300 text-clay-700 text-sm sm:text-base font-medium rounded-xl shadow-sm hover:bg-clay-100 hover:text-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-2">
-                    ถัดไป <i class="ph-bold ph-caret-right text-lg"></i>
+                    หน้าถัดไป <i class="ph-bold ph-caret-right text-lg"></i>
                 </button>
             </div>
 
@@ -116,7 +121,7 @@
         <p>© 2026 พัฒนาโดย กลุ่มนโยบายและวิชาการ สนง.พมจ.บึงกาฬ • โทรศัพท์ 042-492463</p>
     </footer>
 
-    <!-- Image Preview Modal (Popup แบบหดพอดีรูปภาพ ไม่มีพื้นที่เหลือ) -->
+    <!-- Image Preview Modal -->
     <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 flex items-center justify-center p-2 sm:p-4">
         <div class="bg-clay-50 rounded-2xl shadow-clay w-fit max-w-[95vw] flex flex-col relative transform scale-95 transition-transform duration-300 max-h-[95vh]" id="modalContent">
             
@@ -157,9 +162,8 @@
         const container = document.getElementById('bookshelf-container');
         const searchInput = document.getElementById('searchInput');
 
-        // ตัวแปรสำหรับระบบแบ่งหน้า (Pagination)
         let currentPage = 1;
-        const itemsPerPage = 24; // เปลี่ยนตัวเลขนี้ได้ (ปัจจุบันแสดงผลหน้าละ 24 ชิ้น)
+        const itemsPerPage = 24; 
 
         const thaiMonths = [
             "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
@@ -245,6 +249,14 @@
 
         function renderView() {
             updateBreadcrumbs();
+            
+            const levelBackBtnContainer = document.getElementById('levelBackBtnContainer');
+            if (currentPath.length > 0) {
+                levelBackBtnContainer.classList.remove('hidden');
+            } else {
+                levelBackBtnContainer.classList.add('hidden');
+            }
+
             let currentItems = [];
             const currentParentId = currentPathIds[currentPathIds.length - 1];
 
@@ -261,7 +273,6 @@
 
             currentItems = sortItems(currentItems);
 
-            // --- คำนวณและตัดข้อมูลสำหรับแบ่งหน้า (Pagination) ---
             const totalPages = Math.ceil(currentItems.length / itemsPerPage) || 1;
             if (currentPage > totalPages) currentPage = totalPages;
             if (currentPage < 1) currentPage = 1;
@@ -284,12 +295,13 @@
             const shelfRow = document.createElement('div');
             shelfRow.className = 'relative w-full';
 
+            // ปรับระยะห่าง gap-x เพื่อให้สัดส่วนการเรียง 6 ชิ้นพอดีบนความกว้างที่ขยายขึ้น
             const itemsContainer = document.createElement('div');
-            itemsContainer.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-10 px-2 sm:px-4 justify-items-center items-end z-20 relative';
+            itemsContainer.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-3 lg:gap-x-6 gap-y-10 px-2 sm:px-4 justify-items-center items-end z-20 relative';
 
             items.forEach(item => {
                 const itemEl = document.createElement('div');
-                itemEl.className = 'group flex flex-col items-center w-full max-w-[140px] transition-all duration-300 transform';
+                itemEl.className = 'group flex flex-col items-center w-full max-w-[130px] lg:max-w-[140px] transition-all duration-300 transform';
                 
                 if (item.type === 'folder') {
                     itemEl.innerHTML = `
@@ -325,7 +337,6 @@
             container.appendChild(shelfRow);
         }
 
-        // ควบคุมหน้าตาปุ่มเปลี่ยนหน้า
         function updatePaginationUI(totalPages) {
             const paginationContainer = document.getElementById('pagination-container');
             const prevBtn = document.getElementById('prevPageBtn');
@@ -339,15 +350,13 @@
                 prevBtn.disabled = currentPage === 1;
                 nextBtn.disabled = currentPage === totalPages;
             } else {
-                paginationContainer.classList.add('hidden'); // ซ่อนถ้ามีแค่ 1 หน้า
+                paginationContainer.classList.add('hidden');
             }
         }
 
-        // ฟังก์ชันเมื่อกดปุ่มเปลี่ยนหน้า
         window.changePage = function(direction) {
             currentPage += direction;
             renderView();
-            // เลื่อนจอกลับขึ้นไปด้านบนชั้นวางอัตโนมัติ
             document.getElementById('bookshelf-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
@@ -360,7 +369,7 @@
                 currentPathIds.push(id);
             }
             searchInput.value = '';
-            currentPage = 1; // รีเซ็ตกลับไปหน้า 1
+            currentPage = 1; 
             renderView();
         }
 
@@ -373,7 +382,7 @@
                 currentPathIds = currentPathIds.slice(0, index + 2);
             }
             searchInput.value = '';
-            currentPage = 1; // รีเซ็ตกลับไปหน้า 1
+            currentPage = 1; 
             renderView();
         }
 
@@ -388,11 +397,11 @@
         }
 
         searchInput.addEventListener('input', () => {
-            currentPage = 1; // รีเซ็ตกลับไปหน้า 1 เมื่อค้นหา
+            currentPage = 1; 
             renderView();
         });
 
-        // ------------------ ระบบ Modal ป๊อปอัพ ------------------
+        // Modal Logic
         const modal = document.getElementById('imageModal');
         const modalContent = document.getElementById('modalContent');
         const modalImage = document.getElementById('modalImage');

@@ -3,34 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รูปข่าวกิจกรรม ONE PAGE - คลังเอกสารอิเล็กทรอนิกส์</title>
+    <title>รูปข่าวกิจกรรม ONE PAGE</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Kanit for modern Thai aesthetic -->
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Phosphor Icons for simple modern icons -->
+    <!-- Google Fonts: Kanit -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Kanit', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Kanit', 'sans-serif'] },
                     colors: {
-                        // Warm earth tones
                         clay: {
-                            50: '#faf9f8',
-                            100: '#f5f4f1',
-                            200: '#e8e5df',
-                            300: '#d5cfc4',
-                            400: '#b8afa0',
-                            500: '#a39682',
-                            600: '#8c7d6b',
-                            700: '#75685a',
-                            800: '#63584e',
-                            900: '#524941',
+                            50: '#faf9f8', 100: '#f5f4f1', 200: '#e8e5df',
+                            300: '#d5cfc4', 400: '#b8afa0', 500: '#a39682',
+                            600: '#8c7d6b', 700: '#75685a', 800: '#63584e', 900: '#524941',
                         }
                     },
                     boxShadow: {
@@ -46,7 +36,6 @@
     </script>
     <style>
         body { background-color: #f5f4f1; }
-        /* Custom 3D Shelf styling */
         .shelf-divider {
             position: relative;
             background: linear-gradient(to bottom, #fdfcfb, #e8e5df);
@@ -56,46 +45,19 @@
             z-index: 10;
         }
         .shelf-divider::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 2%;
-            width: 96%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            filter: blur(1px);
+            content: ''; position: absolute; top: -2px; left: 2%;
+            width: 96%; height: 4px; background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%; filter: blur(1px);
         }
-        /* Book spine shadow effect */
-        .book-cover::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 5px;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.1) 100%);
-            border-top-left-radius: 0.25rem;
-            border-bottom-left-radius: 0.25rem;
-        }
-        /* Page edges effect */
-        .book-cover {
-            border-right: 3px solid #e5e5e5;
-            border-top: 1px solid #e5e5e5;
-            border-bottom: 1px solid #d4d4d4;
-        }
-        /* Hide scrollbar for breadcrumbs */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="text-clay-800 antialiased min-h-screen flex flex-col">
 
-    <!-- Header Navigation -->
+    <!-- Header -->
     <header class="sticky top-0 z-50 bg-clay-50/90 backdrop-blur-md border-b border-clay-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-            
-            <!-- Logo & Title -->
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-amber-700 to-amber-900 rounded-xl shadow-clay flex items-center justify-center text-white">
                     <i class="ph-fill ph-books text-2xl"></i>
@@ -105,194 +67,197 @@
                     <p class="text-xs text-clay-500">คลังเอกสารเผยแพร่</p>
                 </div>
             </div>
-
-            <!-- Search and Controls -->
-            <div class="flex items-center gap-4 w-full md:w-auto">
-                <div class="relative w-full md:w-64">
-                    <input type="text" id="searchInput" placeholder="ค้นหาเอกสาร..." 
-                           class="w-full pl-10 pr-4 py-2 bg-white border-none rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-sm transition-shadow">
-                    <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-clay-400 text-lg"></i>
-                </div>
+            <div class="relative w-full md:w-64">
+                <input type="text" id="searchInput" placeholder="ค้นหาเอกสาร..." 
+                       class="w-full pl-10 pr-4 py-2 bg-white border border-clay-200 rounded-full shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-500/50 text-sm">
+                <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-clay-400 text-lg"></i>
             </div>
         </div>
     </header>
 
-    <!-- Breadcrumb Navigation -->
+    <!-- Breadcrumbs -->
     <div class="bg-clay-100/80 border-b border-clay-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
             <nav id="breadcrumb-container" class="flex text-sm text-clay-700 font-medium items-center overflow-x-auto whitespace-nowrap hide-scrollbar">
-                <!-- Javascript will populate this -->
+                <!-- JS will populate -->
             </nav>
         </div>
     </div>
 
-    <!-- Main Bookshelf Area -->
+    <!-- Main Content -->
     <main class="flex-grow py-8 px-4 sm:px-6 lg:px-8">
-        <!-- Bookshelf Cabinet Container -->
-        <div class="max-w-6xl mx-auto bg-clay-50 rounded-2xl shadow-clay-inset p-4 md:p-8 lg:px-16 border border-clay-200 relative overflow-hidden min-h-[50vh]">
+        <div class="max-w-6xl mx-auto bg-clay-50 rounded-2xl shadow-clay-inset p-4 md:p-8 lg:px-16 border border-clay-200 relative overflow-hidden">
             <div class="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_10px_30px_rgba(0,0,0,0.05)]"></div>
-            <div id="bookshelf-container" class="relative mt-8">
-                <!-- Data is rendered here -->
-            </div>
+            <div id="bookshelf-container" class="relative mt-8"></div>
         </div>
     </main>
 
+    <!-- Footer -->
     <footer class="bg-clay-200 py-6 text-center text-clay-600 text-sm">
         <p>© 2026 พัฒนาโดย กลุ่มนโยบายและวิชาการ สนง.พมจ.บึงกาฬ • โทรศัพท์ 042-492463</p>
     </footer>
 
-    <!-- Image Preview Modal -->
-    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-md transition-opacity duration-300 opacity-0 flex items-center justify-center p-4 sm:p-8">
-        <div class="bg-clay-50 rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden flex flex-col relative transform scale-95 transition-transform duration-300" id="modalContent">
-            <!-- Header -->
-            <div class="px-4 py-3 border-b border-clay-200 flex justify-between items-center bg-white/80">
-                <h3 id="modalTitle" class="text-clay-900 font-semibold text-lg truncate pr-4">Preview</h3>
-                <button onclick="closePreview()" class="text-clay-500 hover:text-red-500 transition-colors p-1.5 rounded-full hover:bg-clay-200 focus:outline-none">
+    <!-- Image Preview Modal (Popup) -->
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 flex items-center justify-center p-4 sm:p-8">
+        <div class="bg-clay-50 rounded-2xl shadow-clay w-full max-w-5xl overflow-hidden flex flex-col relative transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="px-4 py-3 border-b border-clay-200 flex justify-between items-center bg-white">
+                <h3 id="modalTitle" class="text-clay-800 font-semibold text-lg truncate pr-4">Preview</h3>
+                <button onclick="closePreview()" class="text-clay-500 hover:text-red-500 p-1.5 rounded-full hover:bg-clay-200 transition-colors">
                     <i class="ph-bold ph-x text-xl"></i>
                 </button>
             </div>
-            <!-- Image Container -->
-            <div class="bg-gray-900/5 relative flex-grow flex items-center justify-center p-4 min-h-[50vh] max-h-[75vh] overflow-hidden">
-                <!-- Loading spinner for image -->
-                <div id="imgLoading" class="absolute inset-0 flex items-center justify-center">
-                    <i class="ph-bold ph-spinner-gap animate-spin text-4xl text-clay-400"></i>
+            <div class="bg-gray-800 relative flex-grow flex items-center justify-center p-2 min-h-[50vh] max-h-[75vh] overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none" id="modalLoading">
+                    <i class="ph-bold ph-spinner animate-spin text-4xl text-white/50"></i>
                 </div>
-                <img id="modalImage" src="" alt="Preview" class="max-w-full max-h-full object-contain drop-shadow-lg rounded-md relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0'); document.getElementById('imgLoading').style.display='none';">
+                <img id="modalImage" src="" alt="Preview" class="max-w-full max-h-full object-contain relative z-10 hidden" onload="document.getElementById('modalLoading').style.display='none'; this.classList.remove('hidden');">
             </div>
-            <!-- Footer Actions -->
-            <div class="px-6 py-4 bg-white flex justify-end gap-3 border-t border-clay-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] relative z-20">
-                <button onclick="closePreview()" class="px-4 py-2 text-sm font-medium text-clay-700 bg-clay-100 border border-clay-300 rounded-lg hover:bg-clay-200 shadow-sm transition-colors">
-                    ปิด
-                </button>
-                <a id="modalDownloadBtn" href="#" target="_blank" download class="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg shadow-md hover:shadow-lg hover:from-amber-500 hover:to-amber-600 transition-all flex items-center gap-2">
-                    <i class="ph-bold ph-download-simple"></i>
-                    ดาวน์โหลดภาพต้นฉบับ
+            <div class="px-6 py-4 bg-clay-100 flex justify-end gap-3 border-t border-clay-200">
+                <button onclick="closePreview()" class="px-4 py-2 text-sm font-medium text-clay-700 bg-white border border-clay-300 rounded-lg hover:bg-clay-50 shadow-sm transition-colors">ปิด</button>
+                <a id="modalDownloadBtn" href="#" target="_blank" class="px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg shadow-md hover:shadow-lg hover:from-amber-500 hover:to-amber-600 transition-all flex items-center gap-2">
+                    <i class="ph-bold ph-download-simple"></i> ดาวน์โหลดไฟล์ต้นฉบับ
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript for Data and Interactivity -->
+    <!-- Application Script -->
     <script>
+        // ----------------------------------------------------------------
+        // ใส่ Web App URL ของคุณที่นี่
         const API_URL = "https://script.google.com/macros/s/AKfycbxIKY34bNjxCkDelWoJsjrXGl8g-d_CMxqp2MLKUymShNHakoPZ7hb4dBWKhVg9NYDQ/exec";
-        const itemsPerShelf = 6; 
+        // ----------------------------------------------------------------
 
-        // Node-based state navigation (Supports Unlimited Depth)
-        let rootNode = { id: 'root', name: 'หน้าแรก', type: 'folder', children: [] };
-        let pathStack = [rootNode]; // Array of nodes currently traversed
-        let allNodesMap = { 'root': rootNode };
-
+        let appData = { tree: {}, items: [] }; 
+        let currentPath = []; 
+        let currentPathIds = ['root']; 
+        
         const container = document.getElementById('bookshelf-container');
         const searchInput = document.getElementById('searchInput');
+        const itemsPerShelf = 6; 
 
-        // Fallback Mock Data (Flat array matching Google Apps Script format)
-        const mockFlatData = [
-            { id: 'f2569', name: '2569', type: 'folder', parentId: 'root' },
-            { id: 'f_jan', name: 'มกราคม', type: 'folder', parentId: 'f2569' },
-            { id: 'img_test1', name: 'รูปภาพงานวันเด็ก.jpg', type: 'image', parentId: 'f_jan', url: 'https://images.unsplash.com/photo-1543165365-07232ed12fad?auto=format&fit=crop&q=80&w=600' },
-            { id: 'f_05', name: '05', type: 'folder', parentId: 'f_jan' },
-            { id: 'img_test2', name: 'ลงพื้นที่_1.jpg', type: 'image', parentId: 'f_05', url: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=600' },
-            { id: 'f2568', name: '2568', type: 'folder', parentId: 'root' },
-            { id: 'f_dec', name: 'ธันวาคม', type: 'folder', parentId: 'f2568' },
-            { id: 'img_test3', name: 'ประชุมสิ้นปี.jpg', type: 'image', parentId: 'f_dec', url: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600' }
+        // ระบบเรียงเดือนไทย
+        const thaiMonths = [
+            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+            "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
         ];
 
-        // 1. Build a Tree from Flat Array
+        // แก้ปัญหาลิงก์รูปภาพ Google Drive (แปลงเป็น Thumbnail)
+        function fixDriveUrls(url) {
+            if (!url) return { display: '', download: '' };
+            if (url.includes('drive.google.com/uc')) {
+                const idMatch = url.match(/id=([^&]+)/);
+                if (idMatch && idMatch[1]) {
+                    const fileId = idMatch[1];
+                    return {
+                        display: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`, // ดึงภาพตัวอย่างขนาดใหญ่ (แก้รูปแตก)
+                        download: `https://drive.google.com/uc?export=download&id=${fileId}` // โหลดไฟล์จริง
+                    };
+                }
+            }
+            return { display: url, download: url };
+        }
+
+        // จัดการโครงสร้างข้อมูลแบบ Tree
         function buildTree(flatData) {
-            rootNode.children = [];
-            allNodesMap = { 'root': rootNode };
+            const tree = {};
+            const itemsMap = {};
+            
+            flatData.forEach(item => { itemsMap[item.id] = item; });
 
-            // First pass: Create map objects
             flatData.forEach(item => {
-                allNodesMap[item.id] = { ...item, children: [] };
-            });
-
-            // Second pass: Connect children to parents
-            flatData.forEach(item => {
-                const node = allNodesMap[item.id];
-                const parent = allNodesMap[item.parentId];
-                if (parent) {
-                    parent.children.push(node);
-                } else if (item.parentId === 'root') {
-                    rootNode.children.push(node);
+                if (item.parentId === 'root') {
+                    if (!tree[item.id]) tree[item.id] = { ...item, children: [] };
+                } else {
+                    const parent = itemsMap[item.parentId];
+                    if (parent) {
+                        if (!parent.children) parent.children = [];
+                        parent.children.push(item);
+                    }
                 }
             });
+
+            return { tree: flatData.filter(i => i.parentId === 'root'), itemsMap, flatData };
         }
 
-        // 2. Sort Nodes intelligently based on level depth
-        function sortNodes(nodes, levelDepth) {
-            // Separate folders from files
-            const folders = nodes.filter(n => n.type === 'folder');
-            const files = nodes.filter(n => n.type === 'image' || n.type !== 'folder');
-
-            // Sort Folders
-            if (levelDepth === 0) {
-                // Root level (Years) -> Descending (2569, 2568)
-                folders.sort((a, b) => b.name.localeCompare(a.name, undefined, {numeric: true}));
-            } else if (levelDepth === 1) {
-                // Month level -> Chronological
-                const thaiMonths = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
-                folders.sort((a, b) => {
-                    const iA = thaiMonths.indexOf(a.name);
-                    const iB = thaiMonths.indexOf(b.name);
-                    if(iA !== -1 && iB !== -1) return iA - iB;
-                    return a.name.localeCompare(b.name, undefined, {numeric: true});
-                });
-            } else {
-                // Day level or deeper -> Ascending (01, 02)
-                folders.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
-            }
-
-            // Sort Files Alphabetically
-            files.sort((a, b) => a.name.localeCompare(b.name, undefined, {numeric: true}));
-
-            return [...folders, ...files]; // Folders always come first
-        }
-
-        // Initialize fetching data
+        // โหลดข้อมูล
         async function initData() {
             container.innerHTML = `
                 <div class="text-center py-32 flex flex-col items-center justify-center">
                     <i class="ph-bold ph-spinner-gap animate-spin text-5xl text-amber-700/80 mb-4"></i>
-                    <p class="text-clay-600 font-medium animate-pulse text-lg">กำลังเชื่อมต่อข้อมูล...</p>
+                    <p class="text-clay-600 font-medium animate-pulse text-lg">กำลังดึงข้อมูล...</p>
                 </div>
             `;
 
-            let rawData = [];
             try {
                 const response = await fetch(API_URL);
-                if (!response.ok) throw new Error('API failed');
-                rawData = await response.json();
+                if (!response.ok) throw new Error('API Error');
+                const flatData = await response.json();
+                appData = buildTree(flatData);
+                renderView();
             } catch (error) {
-                console.warn('Using Mock Data fallback.');
-                rawData = mockFlatData; // fallback
+                container.innerHTML = `<div class="text-center py-20 text-red-500 font-medium">ไม่สามารถโหลดข้อมูลได้ กรุณาตรวจสอบ URL หรือการแชร์ไฟล์</div>`;
+                console.error(error);
             }
-
-            buildTree(rawData);
-            pathStack = [rootNode]; // reset state
-            renderCurrentView();
         }
 
-        function renderCurrentView() {
+        // จัดเรียงข้อมูล
+        function sortItems(items) {
+            return items.sort((a, b) => {
+                // โฟลเดอร์มาก่อนไฟล์
+                if (a.type === 'folder' && b.type !== 'folder') return -1;
+                if (a.type !== 'folder' && b.type === 'folder') return 1;
+
+                const nameA = a.name;
+                const nameB = b.name;
+
+                // เช็คว่าเป็นชื่อเดือนไหม?
+                const monthIndexA = thaiMonths.indexOf(nameA);
+                const monthIndexB = thaiMonths.indexOf(nameB);
+                if (monthIndexA !== -1 && monthIndexB !== -1) {
+                    return monthIndexA - monthIndexB; // เรียงตามปฏิทิน
+                }
+
+                // เช็คว่าเป็นตัวเลข (ปี หรือ วันที่) ไหม?
+                const numA = parseInt(nameA);
+                const numB = parseInt(nameB);
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    // ถ้าเลขเกิน 2000 (ปี) เรียงมากไปน้อย, ถ้าไม่เกิน (วันที่) เรียงน้อยไปมาก
+                    if (numA > 2000 || numB > 2000) return numB - numA; 
+                    return numA - numB;
+                }
+
+                return nameA.localeCompare(nameB, 'th'); // เรียงตามตัวอักษร
+            });
+        }
+
+        // แสดงผล
+        function renderView() {
             updateBreadcrumbs();
-            
-            const currentNode = pathStack[pathStack.length - 1];
-            let itemsToRender = sortNodes(currentNode.children, pathStack.length - 1);
+            let currentItems = [];
+            const currentParentId = currentPathIds[currentPathIds.length - 1];
 
-            // Simple search filter across children
-            const term = searchInput.value.trim().toLowerCase();
-            if (term) {
-                itemsToRender = itemsToRender.filter(item => item.name.toLowerCase().includes(term));
+            if (currentParentId === 'root') {
+                currentItems = appData.tree;
+            } else {
+                currentItems = appData.itemsMap[currentParentId]?.children || [];
             }
 
-            renderShelves(itemsToRender);
+            // ระบบค้นหา
+            const term = searchInput.value.toLowerCase();
+            if (term) {
+                currentItems = currentItems.filter(item => item.name.toLowerCase().includes(term));
+            }
+
+            currentItems = sortItems(currentItems);
+            renderShelves(currentItems);
         }
 
+        // สร้างชั้นหนังสือ
         function renderShelves(items) {
             container.innerHTML = '';
-            
             if (items.length === 0) {
-                container.innerHTML = `<div class="text-center py-20 text-clay-500 font-medium">ไม่มีไฟล์หรือโฟลเดอร์ในหน้านี้</div>`;
+                container.innerHTML = `<div class="text-center py-20 text-clay-500 font-medium">โฟลเดอร์ว่างเปล่า หรือไม่พบข้อมูล</div>`;
                 return;
             }
 
@@ -300,10 +265,8 @@
 
             for (let i = 0; i < numShelves; i++) {
                 const shelfItems = items.slice(i * itemsPerShelf, (i + 1) * itemsPerShelf);
-                
                 const shelfRow = document.createElement('div');
                 shelfRow.className = 'mb-12 relative';
-
                 const itemsContainer = document.createElement('div');
                 itemsContainer.className = 'flex flex-wrap justify-center sm:justify-start md:justify-center gap-6 md:gap-10 px-4 items-end pb-[2px] z-20 relative';
 
@@ -312,26 +275,24 @@
                     itemEl.className = 'group flex flex-col items-center w-28 sm:w-32 md:w-36 transition-all duration-300 transform';
                     
                     if (item.type === 'folder') {
-                        // Render Folder
                         itemEl.innerHTML = `
-                            <div class="relative w-full aspect-[1/1.3] cursor-pointer bg-[#e4d9c5] border-l-[12px] border-amber-700/80 rounded-r-md rounded-l-sm shadow-book group-hover:shadow-book-hover group-hover:-translate-y-2 transition-all flex flex-col items-center justify-center z-20" onclick="navigateToNode('${item.id}')">
-                                <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-black/10"></div>
-                                <i class="ph-fill ph-folder text-5xl text-amber-800/70 mb-3 drop-shadow-sm"></i>
-                                <h3 class="font-bold text-clay-900 text-center px-2 text-sm md:text-base leading-tight break-words w-full">${item.name}</h3>
+                            <div class="relative w-full aspect-[1/1.3] cursor-pointer bg-[#e4d9c5] border-l-[12px] border-amber-700/80 rounded-r-md rounded-l-sm shadow-book group-hover:shadow-book-hover group-hover:-translate-y-2 transition-all flex flex-col items-center justify-center z-20" onclick="navigateTo('${item.id}', '${item.name}')">
+                                <i class="ph-fill ph-folder text-5xl text-amber-800/70 mb-3"></i>
+                                <h3 class="font-bold text-clay-900 text-center px-2 text-sm leading-tight break-words w-full">${item.name}</h3>
                             </div>
                         `;
                     } else {
-                        // Render File (Image) -> Show actual Image URL as cover
-                        const imgUrl = item.url || `https://placehold.co/400x560/A0522D/ffffff?text=Image`;
-                        const displayName = item.name.replace(/\.[^/.]+$/, ""); // Remove extension for display
+                        // ประมวลผล URL ให้เป็น Thumbnail
+                        const urls = fixDriveUrls(item.url);
+                        const displayTitle = item.name.replace(/\.[^/.]+$/, ""); // ตัดนามสกุลไฟล์ออก
 
                         itemEl.innerHTML = `
-                            <div class="relative w-full aspect-[1/1.3] cursor-pointer bg-white p-1.5 pb-6 rounded-sm shadow-book group-hover:shadow-book-hover group-hover:-translate-y-2 transition-all z-20 flex flex-col" onclick="openPreview('${item.name}', '${imgUrl}')">
-                                <div class="w-full flex-grow bg-gray-100 overflow-hidden relative border border-gray-200 flex items-center justify-center">
-                                    <img src="${imgUrl}" alt="${displayName}" class="w-full h-full object-cover" loading="lazy">
+                            <div class="relative w-full aspect-[1/1.3] cursor-pointer bg-white p-1.5 pb-6 rounded-sm shadow-book group-hover:shadow-book-hover group-hover:-translate-y-2 transition-all z-20" onclick="openPreview('${item.name}', '${urls.display}', '${urls.download}')">
+                                <div class="w-full h-full bg-gray-100 overflow-hidden relative border border-gray-200">
+                                    <img src="${urls.display}" alt="${item.name}" class="w-full h-full object-cover">
                                 </div>
-                                <div class="absolute bottom-1 left-0 right-0 text-center px-1">
-                                    <span class="text-[10px] font-medium text-gray-500 truncate block">${displayName}</span>
+                                <div class="absolute bottom-1 left-0 right-0 text-center">
+                                    <span class="text-[10px] font-medium text-gray-500 truncate px-1 block">${displayTitle}</span>
                                 </div>
                             </div>
                         `;
@@ -341,61 +302,63 @@
 
                 const shelfDivider = document.createElement('div');
                 shelfDivider.className = 'shelf-divider shadow-shelf w-full';
-
                 shelfRow.appendChild(itemsContainer);
                 shelfRow.appendChild(shelfDivider);
                 container.appendChild(shelfRow);
             }
         }
 
-        // Navigation Controller (Node based)
-        window.navigateToNode = function(nodeId) {
-            const node = allNodesMap[nodeId];
-            if (node && node.type === 'folder') {
-                pathStack.push(node);
-                searchInput.value = '';
-                renderCurrentView();
+        // ระบบนำทาง (Navigation)
+        window.navigateTo = function(id, name) {
+            if (id === 'root') {
+                currentPath = [];
+                currentPathIds = ['root'];
+            } else {
+                currentPath.push(name);
+                currentPathIds.push(id);
             }
+            searchInput.value = '';
+            renderView();
         }
 
         window.navigateUpTo = function(index) {
-            pathStack = pathStack.slice(0, index + 1);
+            if (index === -1) {
+                currentPath = [];
+                currentPathIds = ['root'];
+            } else {
+                currentPath = currentPath.slice(0, index + 1);
+                currentPathIds = currentPathIds.slice(0, index + 2);
+            }
             searchInput.value = '';
-            renderCurrentView();
+            renderView();
         }
 
         function updateBreadcrumbs() {
             const bc = document.getElementById('breadcrumb-container');
-            let html = '';
-            pathStack.forEach((node, index) => {
-                if (index > 0) html += `<i class="ph-bold ph-caret-right text-clay-400 text-[10px] mx-2"></i>`;
-                const icon = index === 0 ? '<i class="ph-fill ph-house text-lg mr-1"></i> ' : '';
-                html += `<button onclick="navigateUpTo(${index})" class="hover:text-amber-800 transition-colors truncate max-w-[120px] sm:max-w-none flex items-center">${icon}${node.name}</button>`;
+            let html = `<button onclick="navigateUpTo(-1)" class="hover:text-amber-800 transition-colors flex items-center gap-1"><i class="ph-fill ph-house text-lg"></i> หน้าแรก</button>`;
+            currentPath.forEach((path, index) => {
+                html += `<i class="ph-bold ph-caret-right text-clay-400 text-[10px] mx-2"></i>`;
+                html += `<button onclick="navigateUpTo(${index})" class="hover:text-amber-800 transition-colors truncate">${path}</button>`;
             });
             bc.innerHTML = html;
         }
 
-        searchInput.addEventListener('input', renderCurrentView);
+        searchInput.addEventListener('input', renderView);
 
-        // --- Modal Preview Logic ---
+        // ระบบหน้าต่าง Popup ดูรูปภาพ
         const modal = document.getElementById('imageModal');
         const modalContent = document.getElementById('modalContent');
         const modalImage = document.getElementById('modalImage');
         const modalTitle = document.getElementById('modalTitle');
         const modalDownloadBtn = document.getElementById('modalDownloadBtn');
-        const imgLoading = document.getElementById('imgLoading');
+        const modalLoading = document.getElementById('modalLoading');
 
-        window.openPreview = function(filename, imgUrl) {
-            modalTitle.innerText = filename;
-            
-            // Show loading spinner
-            imgLoading.style.display = 'flex';
-            modalImage.classList.add('opacity-0');
-            modalImage.src = imgUrl;
-            
-            // Provide exact URL to download button (Google Drive URL)
-            modalDownloadBtn.href = imgUrl; 
-            modalDownloadBtn.download = filename;
+        window.openPreview = function(fileName, displayUrl, downloadUrl) {
+            modalTitle.innerText = fileName;
+            modalLoading.style.display = 'flex';
+            modalImage.classList.add('hidden');
+            modalImage.src = displayUrl; // โหลดภาพความละเอียดสูง
+            modalDownloadBtn.href = downloadUrl; // ตั้งค่าปุ่มดาวน์โหลดไฟล์จริง
 
             modal.classList.remove('hidden');
             setTimeout(() => {
@@ -403,7 +366,6 @@
                 modalContent.classList.remove('scale-95');
                 modalContent.classList.add('scale-100');
             }, 10);
-            
             document.body.style.overflow = 'hidden';
         };
 
@@ -411,11 +373,10 @@
             modal.classList.add('opacity-0');
             modalContent.classList.remove('scale-100');
             modalContent.classList.add('scale-95');
-            
             setTimeout(() => {
                 modal.classList.add('hidden');
                 modalImage.src = '';
-                document.body.style.overflow = ''; 
+                document.body.style.overflow = '';
             }, 300);
         };
 
@@ -423,9 +384,8 @@
             if (e.target === modal) closePreview();
         });
 
-        // Init
+        // เริ่มต้นการทำงาน
         initData();
-
     </script>
 </body>
 </html>

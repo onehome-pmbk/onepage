@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รูปข่าวกิจกรรม ONE PAGE</title>
-    <!-- เพิ่มไอคอนหนังสือพิมพ์ตรงนี้ -->
+    
+    <!-- ไอคอนหนังสือพิมพ์บนแท็บ -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📰</text></svg>">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Kanit -->
@@ -43,7 +45,6 @@
             background: linear-gradient(to bottom, #fdfcfb, #e8e5df);
             height: 18px;
             border-radius: 4px;
-            margin-bottom: 3rem;
             z-index: 10;
         }
         .shelf-divider::before {
@@ -90,7 +91,23 @@
     <main class="flex-grow py-8 px-4 sm:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto bg-clay-50 rounded-2xl shadow-clay-inset p-4 md:p-8 lg:px-16 border border-clay-200 relative overflow-hidden">
             <div class="absolute inset-0 pointer-events-none rounded-2xl shadow-[inset_0_10px_30px_rgba(0,0,0,0.05)]"></div>
-            <div id="bookshelf-container" class="relative mt-8"></div>
+            
+            <!-- Bookshelf Area -->
+            <div id="bookshelf-container" class="relative mt-8 min-h-[300px]"></div>
+
+            <!-- Pagination Buttons (Back & Next) -->
+            <div id="pagination-container" class="relative z-20 flex justify-between items-center mt-10 pt-6 border-t border-clay-300/50 hidden">
+                <button id="prevPageBtn" onclick="changePage(-1)" class="px-4 py-2 sm:px-6 sm:py-2.5 bg-white border border-clay-300 text-clay-700 text-sm sm:text-base font-medium rounded-xl shadow-sm hover:bg-clay-100 hover:text-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-2">
+                    <i class="ph-bold ph-caret-left text-lg"></i> ย้อนกลับ
+                </button>
+                
+                <span id="pageIndicator" class="text-sm sm:text-base font-medium text-clay-600 bg-clay-200/50 px-4 py-1.5 rounded-lg">หน้า 1 / 1</span>
+                
+                <button id="nextPageBtn" onclick="changePage(1)" class="px-4 py-2 sm:px-6 sm:py-2.5 bg-white border border-clay-300 text-clay-700 text-sm sm:text-base font-medium rounded-xl shadow-sm hover:bg-clay-100 hover:text-amber-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all flex items-center gap-2">
+                    ถัดไป <i class="ph-bold ph-caret-right text-lg"></i>
+                </button>
+            </div>
+
         </div>
     </main>
 
@@ -99,29 +116,24 @@
         <p>© 2026 พัฒนาโดย กลุ่มนโยบายและวิชาการ สนง.พมจ.บึงกาฬ • โทรศัพท์ 042-492463</p>
     </footer>
 
-<!-- Image Preview Modal (Popup) -->
+    <!-- Image Preview Modal (Popup แบบหดพอดีรูปภาพ ไม่มีพื้นที่เหลือ) -->
     <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm transition-opacity duration-300 opacity-0 flex items-center justify-center p-2 sm:p-4">
-        <!-- เปลี่ยนความกว้างเป็น w-fit เพื่อให้กล่องหดพอดีกับรูปภาพด้านใน -->
         <div class="bg-clay-50 rounded-2xl shadow-clay w-fit max-w-[95vw] flex flex-col relative transform scale-95 transition-transform duration-300 max-h-[95vh]" id="modalContent">
             
-            <!-- Header -->
             <div class="px-4 py-3 border-b border-clay-200 flex justify-between items-center bg-white flex-shrink-0 rounded-t-2xl">
-                <h3 id="modalTitle" class="text-clay-800 font-semibold text-lg truncate pr-4 max-w-[300px] md:max-w-md">Preview</h3>
+                <h3 id="modalTitle" class="text-clay-800 font-semibold text-lg truncate pr-4 max-w-[250px] md:max-w-md">Preview</h3>
                 <button onclick="closePreview()" class="text-clay-500 hover:text-red-500 p-1.5 rounded-full hover:bg-clay-200 transition-colors">
                     <i class="ph-bold ph-x text-xl"></i>
                 </button>
             </div>
             
-            <!-- Image Container (ไม่มีพื้นที่เหลือ) -->
             <div class="bg-[#f0ece6] relative flex justify-center items-center overflow-hidden p-2 sm:p-4">
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none" id="modalLoading">
                     <i class="ph-bold ph-spinner animate-spin text-4xl text-amber-700/50"></i>
                 </div>
-                <!-- จำกัดความสูงภาพไม่ให้ล้นจอ (max-h-[70vh]) เพื่อให้ส่วนหัว-ท้ายกล่องไม่โดนตัด -->
                 <img id="modalImage" src="" alt="Preview" class="w-auto h-auto max-w-[85vw] max-h-[70vh] object-contain relative z-10 hidden shadow-sm rounded-sm" onload="document.getElementById('modalLoading').style.display='none'; this.classList.remove('hidden');">
             </div>
             
-            <!-- Footer Actions -->
             <div class="px-4 sm:px-6 py-4 bg-white flex justify-end gap-3 border-t border-clay-200 flex-shrink-0 rounded-b-2xl">
                 <button onclick="closePreview()" class="px-4 py-2 text-sm font-medium text-clay-700 bg-clay-100 border border-clay-300 rounded-lg hover:bg-clay-200 shadow-sm transition-colors">ปิดหน้าต่าง</button>
                 <a id="modalDownloadBtn" href="#" target="_blank" class="px-4 sm:px-6 py-2 text-sm font-medium text-white bg-gradient-to-r from-amber-600 to-amber-700 rounded-lg shadow-md hover:shadow-lg hover:from-amber-500 hover:to-amber-600 transition-all flex items-center gap-2 whitespace-nowrap">
@@ -144,15 +156,16 @@
         
         const container = document.getElementById('bookshelf-container');
         const searchInput = document.getElementById('searchInput');
-        const itemsPerShelf = 12; 
 
-        // ระบบเรียงเดือนไทย
+        // ตัวแปรสำหรับระบบแบ่งหน้า (Pagination)
+        let currentPage = 1;
+        const itemsPerPage = 24; // เปลี่ยนตัวเลขนี้ได้ (ปัจจุบันแสดงผลหน้าละ 24 ชิ้น)
+
         const thaiMonths = [
             "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
             "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
         ];
 
-        // แก้ปัญหาลิงก์รูปภาพ Google Drive (แปลงเป็น Thumbnail)
         function fixDriveUrls(url) {
             if (!url) return { display: '', download: '' };
             if (url.includes('drive.google.com/uc')) {
@@ -160,21 +173,18 @@
                 if (idMatch && idMatch[1]) {
                     const fileId = idMatch[1];
                     return {
-                        display: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`, // ดึงภาพตัวอย่างขนาดใหญ่ (แก้รูปแตก)
-                        download: `https://drive.google.com/uc?export=download&id=${fileId}` // โหลดไฟล์จริง
+                        display: `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`, 
+                        download: `https://drive.google.com/uc?export=download&id=${fileId}`
                     };
                 }
             }
             return { display: url, download: url };
         }
 
-        // จัดการโครงสร้างข้อมูลแบบ Tree
         function buildTree(flatData) {
             const tree = {};
             const itemsMap = {};
-            
             flatData.forEach(item => { itemsMap[item.id] = item; });
-
             flatData.forEach(item => {
                 if (item.parentId === 'root') {
                     if (!tree[item.id]) tree[item.id] = { ...item, children: [] };
@@ -186,11 +196,9 @@
                     }
                 }
             });
-
             return { tree: flatData.filter(i => i.parentId === 'root'), itemsMap, flatData };
         }
 
-        // โหลดข้อมูล
         async function initData() {
             container.innerHTML = `
                 <div class="text-center py-32 flex flex-col items-center justify-center">
@@ -198,7 +206,6 @@
                     <p class="text-clay-600 font-medium animate-pulse text-lg">กำลังดึงข้อมูล...</p>
                 </div>
             `;
-
             try {
                 const response = await fetch(API_URL);
                 if (!response.ok) throw new Error('API Error');
@@ -211,37 +218,31 @@
             }
         }
 
-        // จัดเรียงข้อมูล
         function sortItems(items) {
             return items.sort((a, b) => {
-                // โฟลเดอร์มาก่อนไฟล์
                 if (a.type === 'folder' && b.type !== 'folder') return -1;
                 if (a.type !== 'folder' && b.type === 'folder') return 1;
 
                 const nameA = a.name;
                 const nameB = b.name;
 
-                // เช็คว่าเป็นชื่อเดือนไหม?
                 const monthIndexA = thaiMonths.indexOf(nameA);
                 const monthIndexB = thaiMonths.indexOf(nameB);
                 if (monthIndexA !== -1 && monthIndexB !== -1) {
-                    return monthIndexA - monthIndexB; // เรียงตามปฏิทิน
+                    return monthIndexA - monthIndexB; 
                 }
 
-                // เช็คว่าเป็นตัวเลข (ปี หรือ วันที่) ไหม?
                 const numA = parseInt(nameA);
                 const numB = parseInt(nameB);
                 if (!isNaN(numA) && !isNaN(numB)) {
-                    // ถ้าเลขเกิน 2000 (ปี) เรียงมากไปน้อย, ถ้าไม่เกิน (วันที่) เรียงน้อยไปมาก
                     if (numA > 2000 || numB > 2000) return numB - numA; 
                     return numA - numB;
                 }
 
-                return nameA.localeCompare(nameB, 'th'); // เรียงตามตัวอักษร
+                return nameA.localeCompare(nameB, 'th'); 
             });
         }
 
-        // แสดงผล
         function renderView() {
             updateBreadcrumbs();
             let currentItems = [];
@@ -253,18 +254,26 @@
                 currentItems = appData.itemsMap[currentParentId]?.children || [];
             }
 
-            // ระบบค้นหา
             const term = searchInput.value.toLowerCase();
             if (term) {
                 currentItems = currentItems.filter(item => item.name.toLowerCase().includes(term));
             }
 
             currentItems = sortItems(currentItems);
-            renderShelves(currentItems);
+
+            // --- คำนวณและตัดข้อมูลสำหรับแบ่งหน้า (Pagination) ---
+            const totalPages = Math.ceil(currentItems.length / itemsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedItems = currentItems.slice(startIndex, endIndex);
+
+            renderShelves(paginatedItems);
+            updatePaginationUI(totalPages);
         }
 
-        // สร้างชั้นหนังสือ
-// สร้างชั้นหนังสือ (แบบ Grid หด-ขยาย พอดีหน้าจอ ไม่มีช่องว่างแหว่ง)
         function renderShelves(items) {
             container.innerHTML = '';
             if (items.length === 0) {
@@ -273,11 +282,8 @@
             }
 
             const shelfRow = document.createElement('div');
-            shelfRow.className = 'mb-12 relative w-full';
+            shelfRow.className = 'relative w-full';
 
-            // 1. เปลี่ยนมาใช้ระบบ Grid แทน Flexbox
-            // lg:grid-cols-6 หมายถึงจอคอมจะแสดง 6 คอลัมน์ (โฟลเดอร์ 12 เดือน จะลงตัวพอดีที่ 2 แถว ไม่มีช่องโหว่)
-            // สำหรับไฟล์รูป JPG ก็จะเรียงชิดซ้ายไปขวาอย่างเป็นระเบียบ
             const itemsContainer = document.createElement('div');
             itemsContainer.className = 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-4 gap-y-10 px-2 sm:px-4 justify-items-center items-end z-20 relative';
 
@@ -291,13 +297,11 @@
                             <i class="ph-fill ph-folder text-5xl text-amber-800/70 mb-3"></i>
                             <h3 class="font-bold text-clay-900 text-center px-2 text-sm leading-tight break-words w-full">${item.name}</h3>
                         </div>
-                        <!-- ฐานชั้นวางเล็กใต้โฟลเดอร์แต่ละอัน -->
                         <div class="w-[115%] h-2 bg-gradient-to-b from-white to-clay-300 rounded-sm shadow-sm mt-1 z-10"></div>
                     `;
                 } else {
                     const urls = fixDriveUrls(item.url);
                     const displayTitle = item.name.replace(/\.[^/.]+$/, "");
-                    
                     itemEl.innerHTML = `
                         <div class="relative w-full aspect-[1/1.3] cursor-pointer bg-white p-1.5 pb-6 rounded-sm shadow-book group-hover:shadow-book-hover group-hover:-translate-y-2 transition-all z-20" onclick="openPreview('${item.name}', '${urls.display}', '${urls.download}')">
                             <div class="w-full h-full bg-gray-100 overflow-hidden relative border border-gray-200">
@@ -307,14 +311,12 @@
                                 <span class="text-[10px] font-medium text-gray-500 truncate block w-full">${displayTitle}</span>
                             </div>
                         </div>
-                        <!-- ฐานชั้นวางเล็กใต้รูปภาพแต่ละอัน -->
                         <div class="w-[115%] h-2 bg-gradient-to-b from-white to-clay-300 rounded-sm shadow-sm mt-1 z-10"></div>
                     `;
                 }
                 itemsContainer.appendChild(itemEl);
             });
 
-            // เส้นชั้นวางใหญ่รวมด้านล่างสุด
             const shelfDivider = document.createElement('div');
             shelfDivider.className = 'shelf-divider shadow-shelf w-full mt-6';
             
@@ -323,7 +325,32 @@
             container.appendChild(shelfRow);
         }
 
-        // ระบบนำทาง (Navigation)
+        // ควบคุมหน้าตาปุ่มเปลี่ยนหน้า
+        function updatePaginationUI(totalPages) {
+            const paginationContainer = document.getElementById('pagination-container');
+            const prevBtn = document.getElementById('prevPageBtn');
+            const nextBtn = document.getElementById('nextPageBtn');
+            const pageInd = document.getElementById('pageIndicator');
+
+            if (totalPages > 1) {
+                paginationContainer.classList.remove('hidden');
+                pageInd.innerText = `หน้า ${currentPage} / ${totalPages}`;
+                
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages;
+            } else {
+                paginationContainer.classList.add('hidden'); // ซ่อนถ้ามีแค่ 1 หน้า
+            }
+        }
+
+        // ฟังก์ชันเมื่อกดปุ่มเปลี่ยนหน้า
+        window.changePage = function(direction) {
+            currentPage += direction;
+            renderView();
+            // เลื่อนจอกลับขึ้นไปด้านบนชั้นวางอัตโนมัติ
+            document.getElementById('bookshelf-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         window.navigateTo = function(id, name) {
             if (id === 'root') {
                 currentPath = [];
@@ -333,6 +360,7 @@
                 currentPathIds.push(id);
             }
             searchInput.value = '';
+            currentPage = 1; // รีเซ็ตกลับไปหน้า 1
             renderView();
         }
 
@@ -345,6 +373,7 @@
                 currentPathIds = currentPathIds.slice(0, index + 2);
             }
             searchInput.value = '';
+            currentPage = 1; // รีเซ็ตกลับไปหน้า 1
             renderView();
         }
 
@@ -358,9 +387,12 @@
             bc.innerHTML = html;
         }
 
-        searchInput.addEventListener('input', renderView);
+        searchInput.addEventListener('input', () => {
+            currentPage = 1; // รีเซ็ตกลับไปหน้า 1 เมื่อค้นหา
+            renderView();
+        });
 
-        // ระบบหน้าต่าง Popup ดูรูปภาพ
+        // ------------------ ระบบ Modal ป๊อปอัพ ------------------
         const modal = document.getElementById('imageModal');
         const modalContent = document.getElementById('modalContent');
         const modalImage = document.getElementById('modalImage');
@@ -372,8 +404,8 @@
             modalTitle.innerText = fileName;
             modalLoading.style.display = 'flex';
             modalImage.classList.add('hidden');
-            modalImage.src = displayUrl; // โหลดภาพความละเอียดสูง
-            modalDownloadBtn.href = downloadUrl; // ตั้งค่าปุ่มดาวน์โหลดไฟล์จริง
+            modalImage.src = displayUrl; 
+            modalDownloadBtn.href = downloadUrl; 
 
             modal.classList.remove('hidden');
             setTimeout(() => {
@@ -399,7 +431,6 @@
             if (e.target === modal) closePreview();
         });
 
-        // เริ่มต้นการทำงาน
         initData();
     </script>
 </body>

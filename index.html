@@ -109,14 +109,13 @@
                 </button>
             </div>
             
-            <!-- Image Container (Scrollable) -->
-            <!-- ใช้ overflow-y-auto เพื่อให้ผู้ใช้สกอร์ลเมาส์เลื่อนอ่านเอกสารแนวตั้งได้ -->
-            <div class="bg-[#f0ece6] relative flex-grow overflow-y-auto p-2 md:p-6 flex justify-center items-start">
+            <!-- Image Container (ไม่มีแถบเลื่อน, ย่อรูปพอดีกรอบอัตโนมัติ) -->
+            <div class="bg-[#f0ece6] relative flex-grow overflow-hidden p-2 md:p-6 flex justify-center items-center min-h-0">
                 <div class="absolute inset-0 flex items-center justify-center pointer-events-none" id="modalLoading">
                     <i class="ph-bold ph-spinner animate-spin text-4xl text-amber-700/50"></i>
                 </div>
-                <!-- เปลี่ยนเป็น w-full และ h-auto เพื่อให้สัดส่วนภาพมาเต็มแผ่น 100% ไม่โดนตัด -->
-                <img id="modalImage" src="" alt="Preview" class="w-full max-w-3xl h-auto relative z-10 hidden shadow-lg rounded-sm" onload="document.getElementById('modalLoading').style.display='none'; this.classList.remove('hidden');">
+                <!-- ใช้ max-w-full, max-h-full และ object-contain เพื่อให้รูปอยู่ในกรอบพอดีโดยไม่ถูกตัดทอน -->
+                <img id="modalImage" src="" alt="Preview" class="max-w-full max-h-full object-contain relative z-10 hidden shadow-lg rounded-sm" onload="document.getElementById('modalLoading').style.display='none'; this.classList.remove('hidden');">
             </div>
             
             <!-- Footer Actions -->
